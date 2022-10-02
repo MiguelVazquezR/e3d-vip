@@ -82,22 +82,22 @@
                 tracking-wider
               "
             >
-              Acciones
+              
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders.data" :key="order.id">
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <tr v-for="order in orders.data" :key="order.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
+            <td class="px-5 py-5 border-b  text-sm">
               <p class="text-gray-900 whitespace-no-wrap">Admin</p>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <td class="px-5 py-5 border-b text-sm">
               <p class="text-gray-900 whitespace-no-wrap">Admin</p>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <td class="px-5 py-5 border-b text-sm">
               <p class="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <td class="px-5 py-5 border-b text-sm">
               <span
                 class="
                   relative
@@ -116,8 +116,8 @@
                 <span class="relative">Entregado</span>
               </span>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <div class="flex items-right text-xs text-gray-300">
+            <td class="px-5 py-5 border-b text-sm">
+              <div class="flex justify-end w-full text-xs text-gray-300">
                 <Link href="#" class="mr-2 hover:text-blue-300">
                   <i class="fa-solid fa-pen"></i>
                 </Link>
