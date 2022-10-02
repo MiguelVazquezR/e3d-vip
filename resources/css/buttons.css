@@ -1,0 +1,11 @@
+.btn-primary {
+    @apply px-2 py-1 font-semibold border rounded border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition duration-200;
+}
+
+.btn-secondary {
+    @apply px-2 py-1 font-semibold border rounded border-gray-500 text-gray-500 hover:bg-gray-100 transition duration-200;
+}
+
+.btn-danger {
+    @apply px-2 py-1 font-semibold border rounded border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-200;
+}

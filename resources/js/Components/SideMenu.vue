@@ -13,7 +13,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Órdenes </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('awards.index')" :active="route().current('awards.*')">
                         <span class="text-left">
                             <i class="fa-solid fa-gift"></i>
                         </span>
