@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('is_admin')->default(0);
             $table->string('rfc')->unique();
             $table->string('bussines_name');
             $table->string('phone_number')->unique();

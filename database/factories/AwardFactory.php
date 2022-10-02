@@ -19,11 +19,12 @@ class AwardFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {return [
-        'location' => $this->faker->locale(),
-        'description' => $this->faker->text(100),
-        'points' => $this->faker->numberBetween(20,100),
-        'title' => $this->faker->word(),    
-    ];
+    {
+        return [
+            'location' => $this->faker->address(),
+            'description' => $this->faker->text(100),
+            'points' => $this->faker->numberBetween(20, 100),
+            'title' => $this->faker->word(),
+        ];
     }
 }
