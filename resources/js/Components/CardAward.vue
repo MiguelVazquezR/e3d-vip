@@ -25,15 +25,14 @@
                 <div class="border-t-2"></div>
 
                 <div class="text-center pt-4">
-                    <button class="btn-primary">Canjear</button>
+                    <button @click="emitExchange" class="btn-primary">Canjear</button>
                 </div>
             </div>
         </div>
-
-
         
     </div>
 </div>
+
 </template>
 
 <script>
@@ -83,6 +82,9 @@ export default {
         }else{
           return {color:'bg-yellow-500', icon: 'fa-solid fa-box-open'};
         }
+      },
+      emitExchange(){
+        this.$emit('exchange');
       }
     }
 }
