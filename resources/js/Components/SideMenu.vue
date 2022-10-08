@@ -31,7 +31,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Mensajería </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('quotations.index')" :active="route().current('quotations.*')">
                         <span class="text-left">
                            <i class="fa-solid fa-file-invoice-dollar"></i>
                         </span>
