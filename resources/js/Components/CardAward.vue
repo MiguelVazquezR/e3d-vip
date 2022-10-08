@@ -23,10 +23,14 @@
                      <p>{{ award.points }} Puntos</p> 
                 </div>
                 <div class="border-t-2"></div>
-
-                <div class="text-center pt-4">
+                
+                <div v-if="changed" class="text-right text-green-500 pt-4">
+                    Canjeado
+                </div>
+                <div v-else class="text-center pt-4">
                     <button @click="emitExchange" class="btn-primary">Canjear</button>
                 </div>
+                
             </div>
         </div>
         
@@ -86,6 +90,9 @@ export default {
       emitExchange(){
         this.$emit('exchange');
       }
+    },
+    props:{
+      changed: Boolean,
     }
 }
 </script>

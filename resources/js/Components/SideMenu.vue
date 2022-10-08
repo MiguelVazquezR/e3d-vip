@@ -25,7 +25,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Productos </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('chat.index')" :active="route().current('chat.*')">
                         <span class="text-left">
                            <i class="fa-solid fa-comments"></i>
                         </span>

@@ -19,6 +19,11 @@ class AwardController extends Controller
         return inertia('Awards/Index');
     }
 
+    public function history()
+    {
+        return inertia('Awards/History');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
