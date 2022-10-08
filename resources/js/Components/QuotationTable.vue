@@ -6,7 +6,7 @@
 
   <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-      <table v-if="orders.data.length" class="min-w-full leading-normal">
+      <table v-if="quotations.data.length" class="min-w-full leading-normal">
         <thead>
           <tr>
             <th
@@ -60,14 +60,29 @@
                 py-3
                 border-b-2 border-gray-200
                bg-blue-200
-                text-left text-xs
+                text-right text-xs
                 font-semibold
                 text-gray-600
                 uppercase
                 tracking-wider
               "
             >
-              Status
+              Flete
+            </th>
+            <th
+              class="
+                px-5
+                py-3
+                border-b-2 border-gray-200
+               bg-blue-200
+                text-right text-xs
+                font-semibold
+                text-gray-600
+                uppercase
+                tracking-wider
+              "
+            >
+              Total sin IVA
             </th>
             <th
               class="
@@ -75,7 +90,7 @@
                 py-3
                 border-b-2 border-gray-200
                 bg-blue-200
-                text-left text-xs
+                text-right text-xs
                 font-semibold
                 text-gray-600
                 uppercase
@@ -87,34 +102,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders.data" :key="order.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
+          <tr v-for="quotation in quotations.data" :key="quotation.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+              <p class="text-gray-900 whitespace-no-wrap">0050</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+              <p class="text-gray-900 whitespace-no-wrap">Llavero (100 pzs), portaplacas (250 pzs)</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <p class="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
             </td>
-            <td class="px-5 py-5 border-b text-sm">
-              <span
-                class="
-                  relative
-                  inline-block
-                  px-3
-                  py-1
-                  font-semibold
-                  text-green-900
-                  leading-tight
-                "
-              >
-                <span
-                  aria-hidden
-                  class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                ></span>
-                <span class="relative">Entregado</span>
-              </span>
+            <td class="px-5 py-5 border-b text-sm text-right">
+              <p class="text-gray-900 whitespace-no-wrap">$650.00</p>
+            </td>
+            <td class="px-5 py-5 border-b text-sm text-right">
+              <p class="text-gray-900 whitespace-no-wrap">$5,552.00</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <div class="flex justify-end w-full text-xs text-gray-300">
@@ -124,7 +126,7 @@
                 <button
                   @click="
                     delete_confirm = true;
-                    item_to_delete = order;
+                    item_to_delete = quotation;
                   "
                   class="mr-2 hover:text-red-300"
                 >
@@ -147,7 +149,7 @@
     </template>
     <template #content>
       <div>
-        Estás a punto de eliminar una orden, una vez realizado ya no se podrá
+        Estás a punto de eliminar una cotización, una vez realizado ya no se podrá
         recuperar
       </div>
     </template>
@@ -188,7 +190,7 @@ export default {
     SecondaryButton,
   },
   props: {
-    orders: Object,
+    quotations: Object,
     filters: Object,
     filterURL: String,
   },

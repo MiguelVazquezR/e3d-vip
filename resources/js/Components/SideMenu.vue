@@ -7,7 +7,7 @@
             </div>
             <nav class="mt-6">
                 <div>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('orders.index')" :active="route().current('orders.*')">
                         <span class="text-left">
                             <i class="fa-solid fa-box"></i>
                         </span>
@@ -19,7 +19,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Premios </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('products.index')" :active="route().current('products.*')">
                         <span class="text-left">
                             <i class="fa-solid fa-boxes-stacked"></i>
                         </span>
@@ -31,7 +31,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Mensajería </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('quotations.index')" :active="route().current('quotations.*')">
                         <span class="text-left">
                            <i class="fa-solid fa-file-invoice-dollar"></i>
                         </span>
