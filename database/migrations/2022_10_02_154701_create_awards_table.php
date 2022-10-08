@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('title');
             $table->unsignedSmallInteger('points');
+            $table->unsignedTinyInteger('category');
             $table->timestamps();
         });
     }

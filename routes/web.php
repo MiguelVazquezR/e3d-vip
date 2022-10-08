@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AwardController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +25,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::resource('awards', AwardController::class)
+->middleware('auth')
+->except('show');
+Route::get('/awards-history', [AwardController::class,'history'])->name('awards.history');
+
+Route::get('/chat', [ChatController::class,'index'])->name('chat.index');
 
 Route::middleware([
     'auth:sanctum',
