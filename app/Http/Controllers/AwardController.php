@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Award;
 use App\Http\Requests\StoreAwardRequest;
 use App\Http\Requests\UpdateAwardRequest;
+use Inertia\Inertia;
 
 class AwardController extends Controller
 {
@@ -15,7 +16,12 @@ class AwardController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Awards/Index');
+    }
+
+    public function history()
+    {
+        return inertia('Awards/History');
     }
 
     /**
