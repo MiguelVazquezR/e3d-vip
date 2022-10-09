@@ -1,0 +1,3 @@
+.common-container{
+    @apply bg-white rounded-lg shadow-sm px-4 py-2;
+}

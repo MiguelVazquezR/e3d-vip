@@ -18,7 +18,7 @@
         </form>
       </div>
       <div class="flex flex-col space-y-2 mt-12 px-3">
-        <div :class="user_selected ? 'p-1 bg-blue-200 border-l-4 border-blue-400' : '' "><Avatar :user="$page.props.user" secondary_info="Gerente de ventas" /></div>
+        <div class="p-1" :class="user_selected ? 'bg-blue-200 border-l-4 border-blue-400' : 'cursor-pointer hover:bg-blue-200'"><Avatar :user="$page.props.user" secondary_info="Gerente de ventas" /></div>
         <div><Avatar :user="$page.props.user" secondary_info="Director general" /></div>
         <div><Avatar :user="$page.props.user" secondary_info="Asistente de dirección" /></div>
       </div>

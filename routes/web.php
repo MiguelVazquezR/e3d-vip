@@ -49,9 +49,14 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/orders', [OrderController::class, 'index'])
-    ->middleware('auth')
-    ->name('orders.index');
+Route::resource('orders', OrderController::class);
+// Route::get('/orders', [OrderController::class, 'index'])
+//     ->middleware('auth')
+//     ->name('orders.index');
+
+// Route::post('/orders/create', [OrderController::class, 'create'])
+//     ->middleware('auth')
+//     ->name('orders.create');
 
 Route::get('/products', [ProductController::class, 'index'])
     ->middleware('auth')

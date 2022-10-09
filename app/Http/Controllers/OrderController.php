@@ -10,4 +10,9 @@ class OrderController extends Controller
     {
         return inertia('Orders/Index');
     }
+
+    public function create(Request $request)
+    {
+        return inertia('Orders/Create');
+    }
 }
