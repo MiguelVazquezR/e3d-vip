@@ -1,52 +1,44 @@
- <template>      
- <AppLayout title="Premios">
-    <div class="grid grid-cols-4">
-        <div class="col-span-3">
-        <img src="https://source.unsplash.com/100x100/?portrait" alt="" class="ml-20 mt-7 object-cover w-12 h-12 rounded-full inline-block"> <span>{{'Edgar Sherman'}}</span> 
-        <div class="h-full w-4/5 border-2 border-gray-700 ml-20 mt-2 overflow-y-auto rounded-xl">
-            <div class="flex">
-          <div
-            class="max-w-[14rem] lg:max-w-md rounded-lg my-1 mx-3 p-2 pb-0">
-            <p class="text-[13px]" style="white-space: pre-line">
-              {{ 'message.content' }}
-            </p>
-            <span class="text-[11px] text-gray-500">{{
-              'message.created_at.relative'
-            }}</span>
-          </div>
-        </div>
-        <span ref="bottom" class="mt-20"></span>
-      </div>
-      <form
-        class="text-center flex mx-auto items-center justify-center mt-2 col-start-1"
-      >
-        <textarea
-          class="input flex mr-3 w-2/3 !h-16"
-          placeholder="Escribe tu mensaje aquí..."
+ <template>
+  <AppLayout title="Premios">
+    <div class="grid grid-cols-4 gap-x-3 mt-2 h-[calc(100%-0.5rem)]">
+      <div class="col-span-3 ml-4">
+        <Avatar :user="$page.props.user" />
+        <div class="w-full h-2/3 bg-white border border-gray-300 rounded-lg"></div>
+        <form
+          class="
+            flex
+            items-center
+            mt-2
+          "
         >
-        </textarea>
-        <button
-          type="submit"
-          class="btn-primary">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </form>
-        </div>
+          <textarea class="input flex-1 mr-3 !h-20" placeholder="Escribe tu mensaje aquí..."></textarea>
+          <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+      <div class="flex flex-col space-y-2 mt-12 px-3">
+        <div :class="user_selected ? 'p-1 bg-blue-200 border-l-4 border-blue-400' : '' "><Avatar :user="$page.props.user" secondary_info="Gerente de ventas" /></div>
+        <div><Avatar :user="$page.props.user" secondary_info="Director general" /></div>
+        <div><Avatar :user="$page.props.user" secondary_info="Asistente de dirección" /></div>
+      </div>
     </div>
-
   </AppLayout>
-
- </template>
+</template>
 
  <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import Avatar from "@/Components/Avatar.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      user_selected: true,
+    };
   },
   components: {
     AppLayout,
+    Avatar,
   },
 };
 </script>
