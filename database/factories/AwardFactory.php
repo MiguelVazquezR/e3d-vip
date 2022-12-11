@@ -25,6 +25,7 @@ class AwardFactory extends Factory
             'description' => $this->faker->text(100),
             'points' => $this->faker->numberBetween(20, 100),
             'title' => $this->faker->word(),
+            'category' => $this->faker->randomElement([1,2,3,4]),
         ];
     }
 }
