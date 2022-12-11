@@ -51,6 +51,9 @@ const logout = () => {
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-end h-12">
               <div class="hidden lg:flex sm:items-center sm:ml-6">
+          <span class="text-blue-400 mr-5 hover:text-blue-300">{{ $page.props.user.points }} Puntos</span>
+
+
                 <!-- notifications -->
                 <JetDropdown align="right" width="48">
                   <template #trigger>
@@ -193,6 +196,7 @@ const logout = () => {
 
               <!-- Hamburger -->
               <div class="-mr-2 flex items-center lg:hidden">
+              <span class="mr-7 text-blue-400">{{ $page.props.user.points }} Puntos</span>
                 <button
                   class="
                     inline-flex
@@ -251,28 +255,40 @@ const logout = () => {
           >
             <div class="pt-2 pb-3 space-y-1">
               <JetResponsiveNavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('orders.index')"
+                :active="route().current('orders.*')"
               >
                 Órdenes
               </JetResponsiveNavLink>
               <JetResponsiveNavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('awards.index')"
+                :active="route().current('awards.*')"
               >
                 Premios
               </JetResponsiveNavLink>
               <JetResponsiveNavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('products.index')"
+                :active="route().current('products.*')"
               >
                 Productos
               </JetResponsiveNavLink>
               <JetResponsiveNavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('chat.index')"
+                :active="route().current('chat.*')"
               >
                 Mensajería
+              </JetResponsiveNavLink>
+              <JetResponsiveNavLink
+                :href="route('quotations.index')"
+                :active="route().current('quotations.*')"
+              >
+                Cotizaciones
+              </JetResponsiveNavLink>
+              <JetResponsiveNavLink
+                :href="route('pointsRubric.index')"
+                :active="route().current('pointsRubric.*')"
+              >
+                Rúbricas de Puntos
               </JetResponsiveNavLink>
               <JetResponsiveNavLink
                 :href="route('dashboard')"

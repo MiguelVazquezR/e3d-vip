@@ -3,8 +3,29 @@
     <div class="px-8 py-7 mb-4 bg-white grid-cols-4">
     <Tabs :tabs="tabs" />
     </div>
-    <CardAward @exchange="show_exchange = true" :changed="true"/>
+
+<div class="flex items-center justify-center">
+      <div
+        class="
+          grid grid-cols-1
+          gap-6
+          sm:grid-cols-2
+          md:grid-cols-2
+          lg:grid-cols-4
+          xl:grid-cols-4
+        "
+      >
+        <CardAward
+          v-for="award in awards"
+          :key="award.id"
+          @exchange="show_exchange = true"
+          changed
+          :award="award"
+        />
+      </div>
+    </div>
   </AppLayout>
+
 
  </template>
 
@@ -34,6 +55,10 @@ export default {
     AppLayout,
     Tabs,
     CardAward,
+  },
+  props:{
+    awards: Object,
+
   }
 };
 </script>

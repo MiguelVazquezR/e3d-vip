@@ -5,23 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Award;
 use App\Http\Requests\StoreAwardRequest;
 use App\Http\Requests\UpdateAwardRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AwardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        return inertia('Awards/Index');
+        $awards = Award::all();
+        return inertia('Awards/Index',compact('awards'));
     }
 
     public function history()
     {
-        return inertia('Awards/History');
+        $awards = auth()->user()->awards;
+        return inertia('Awards/History',compact('awards'));
+    }
+
+    public function trade(Request $request )
+    {
+        auth()->user()->awards()->attach($request->award_id);
+        User::find(auth()->id())->decrement('points', Award::find($request->award_id)->points);
+
+        request()->session()->flash('flash.banner','Se ha canjeado correctamente');
+        request()->session()->flash('flash.bannerStyle','success');
+
+        return redirect()->route('awards.history');
     }
 
     /**

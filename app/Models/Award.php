@@ -16,4 +16,9 @@ class Award extends Model
         'points',
 
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('status')->withTimestamps();
+    }
 }

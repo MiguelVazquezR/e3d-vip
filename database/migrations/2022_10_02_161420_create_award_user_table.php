@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('award_id');
             $table->foreignId('user_id');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
