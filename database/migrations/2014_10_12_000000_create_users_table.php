@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('rfc')->unique();
             $table->string('bussines_name');
             $table->string('phone_number')->unique();
+            $table->unsignedMediumInteger('points')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

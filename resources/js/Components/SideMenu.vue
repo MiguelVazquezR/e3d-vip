@@ -37,6 +37,12 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Cotizaciones </span>
                     </JetNavLink>
+                    <JetNavLink :href="route('pointsRubric.index')" :active="route().current('pointsRubric.*')">
+                        <span class="text-left">
+                            <i class="fa-solid fa-sheet-plastic"></i>
+                        </span>
+                        <span class="mx-4 text-sm font-normal"> Rúbrica de Puntos </span>
+                    </JetNavLink>
                     <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                         <span class="text-left">
                             <i class="fa-solid fa-headset"></i>
