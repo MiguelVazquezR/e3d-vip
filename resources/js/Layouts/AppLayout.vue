@@ -291,8 +291,8 @@ const logout = () => {
                 Rúbricas de Puntos
               </JetResponsiveNavLink>
               <JetResponsiveNavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('error-reports.index')"
+                :active="route().current('error-reports.*')"
               >
                 Reportar errores
               </JetResponsiveNavLink>

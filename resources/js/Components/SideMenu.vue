@@ -43,7 +43,7 @@
                         </span>
                         <span class="mx-4 text-sm font-normal"> Rúbrica de Puntos </span>
                     </JetNavLink>
-                    <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <JetNavLink :href="route('error-reports.index')" :active="route().current('error-reports.*')">
                         <span class="text-left">
                             <i class="fa-solid fa-headset"></i>
                         </span>

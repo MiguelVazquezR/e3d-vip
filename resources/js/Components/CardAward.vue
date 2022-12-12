@@ -25,6 +25,7 @@
                 <div v-if="changed" class="text-center">
                     <span class="text-orange-400 " v-if="award.pivot.status==1"> Procesando</span>
                     <span class="text-green-500" v-if="award.pivot.status==2"> Canjeado</span>
+                    <span class="text-red-500" v-if="award.pivot.status==3"> Rechazado</span>
                     
                 </div>
                 <div v-else-if="$page.props.user.points >= award.points" class="text-center pt-4">

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('subject');
             $table->string('content');
             $table->foreignId('user_id');
+            $table->boolean('is_error')->default(0);
+            $table->boolean('is_read')->default(0);
             $table->timestamps();
         });
     }

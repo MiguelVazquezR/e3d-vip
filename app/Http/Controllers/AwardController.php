@@ -29,7 +29,7 @@ class AwardController extends Controller
         auth()->user()->awards()->attach($request->award_id);
         User::find(auth()->id())->decrement('points', Award::find($request->award_id)->points);
 
-        request()->session()->flash('flash.banner','Se ha canjeado correctamente');
+        request()->session()->flash('flash.banner','Se ha canjeado correctamente. Su premio será procesado');
         request()->session()->flash('flash.bannerStyle','success');
 
         return redirect()->route('awards.history');
