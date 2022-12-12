@@ -66,5 +66,9 @@ class User extends Authenticatable
     public function sellOrders()
     {
         return $this->hasMany(SellOrder::class);
+        
+    public function awards()
+    {
+        return $this->belongsToMany(Award::class)->withPivot('status')->withTimestamps();
     }
 }

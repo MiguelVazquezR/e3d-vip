@@ -7,7 +7,7 @@ use App\Http\Controllers\QuotationController;
 
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\ChatController;
-
+use App\Http\Controllers\PointRubricController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +36,8 @@ Route::resource('awards', AwardController::class)
 ->middleware('auth')
 ->except('show');
 Route::get('/awards-history', [AwardController::class,'history'])->name('awards.history');
+Route::post('/awards-trade', [AwardController::class,'trade'])->name('awards.trade');
+
 
 Route::get('/chat', [ChatController::class,'index'])->name('chat.index');
 
@@ -58,3 +60,7 @@ Route::get('/products', [ProductController::class, 'index'])
 Route::get('/quotations', [QuotationController::class, 'index'])
     ->middleware('auth')
     ->name('quotations.index');
+
+Route::get('/points-rubric', [PointRubricController::class, 'index'])
+    ->middleware('auth')
+    ->name('pointsRubric.index');
