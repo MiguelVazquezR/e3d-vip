@@ -4,7 +4,7 @@
       <div class="flex justify-end my-2">
         <Link :href="route('orders.create')" class="btn-primary">Crear</Link>
       </div>
-      <OrdersTable :orders="{ data: [12, 22] }" :filters="{}" filterURL="" />
+      <OrdersTable :orders="sell_orders" :filters="{}" filterURL="" />
     </div>
   </AppLayout>
 </template>
@@ -20,5 +20,9 @@ export default {
     OrdersTable,
     Link,
   },
+  props: {
+    filters: Object,
+    sell_orders: Object,
+  }
 };
 </script>
