@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div 
     class="
       flex flex-col
       space-y-2
@@ -9,7 +9,7 @@
     "
   >
     <div>
-      <select v-model="selection" class="input">
+      <select @change="syncItem" v-model="selection" class="input">
         <option value="x">-- Seleccione --</option>
         <option
           v-for="(product, index) in products"
@@ -29,9 +29,9 @@
       </a>
     </div>
     <span>${{ getPrice }}</span>
-    <input v-model.number="quantity" type="number" class="input" />
+    <input @change="syncItem" v-model.number="quantity" min="1" type="number" class="input" />
     <span>${{ getTotal }}</span>
-    <button @click="$emit('remove')">
+    <button type="button" @click="$emit('deleteItem')">
       <i
         class="
           fa-solid fa-xmark
@@ -70,12 +70,9 @@ export default {
       ],
     };
   },
+  emits: ['deleteItem', 'syncItem'],
   props: {
-    // products: {
-    //   type: Array,
-    //   default: [
-    //   ],
-    // },
+    id: Number
   },
   components: {
     Input,
@@ -94,6 +91,14 @@ export default {
             this.products[this.selection].currency +
             " / Unidad"
         : 0;
+    },
+    syncItem() {
+      if (this.selection != 'x' && this.quantity)
+        this.$emit('syncItem', {
+          id: this.id,
+          product_id: this.products[this.selection].id,
+          quantity: this.quantity,
+        });
     },
   },
 };

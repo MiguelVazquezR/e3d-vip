@@ -62,6 +62,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // relationships
+    public function sellOrders()
+    {
+        return $this->hasMany(SellOrder::class);
+        
     public function awards()
     {
         return $this->belongsToMany(Award::class)->withPivot('status')->withTimestamps();

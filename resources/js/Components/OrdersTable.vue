@@ -89,13 +89,13 @@
         <tbody>
           <tr v-for="order in orders.data" :key="order.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{order.id}}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{order.id}}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{order.created_at.special}}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <span
@@ -113,7 +113,7 @@
                   aria-hidden
                   class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                 ></span>
-                <span class="relative">Entregado</span>
+                <span class="relative">{{order.status}}</span>
               </span>
             </td>
             <td class="px-5 py-5 border-b text-sm">
