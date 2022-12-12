@@ -102,7 +102,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="quotation in quotations.data" :key="quotation.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
+          <tr v-for="quotation in quotations.data" :key="quotation.id" @click="showDetails(quotation)" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
               <p class="text-gray-900 whitespace-no-wrap">0050</p>
             </td>
@@ -202,9 +202,9 @@ export default {
         ();
       this.delete_confirm = false;
     },
-    // showDetails(prop) {
-    //   this.$emit("details", prop);
-    // },
+    showDetails(prop) {
+      this.$emit("details", prop);
+    },
   },
 };
 </script>

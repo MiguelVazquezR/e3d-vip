@@ -40,32 +40,32 @@ const closeModal = () => {
 <template>
     <JetActionSection>
         <template #title>
-            Delete Account
+            Eliminar Cuenta
         </template>
 
         <template #description>
-            Permanently delete your account.
+            Elimina tu cuenta de forma permanente.
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+                Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de eliminar su cuenta, descargue cualquier dato o información que desee conservar.
             </div>
 
             <div class="mt-5">
                 <JetDangerButton @click="confirmUserDeletion">
-                    Delete Account
+                    Eliminar Cuenta
                 </JetDangerButton>
             </div>
 
             <!-- Delete Account Confirmation Modal -->
             <JetDialogModal :show="confirmingUserDeletion" @close="closeModal">
                 <template #title>
-                    Delete Account
+                    Eiminar Cuenta
                 </template>
 
                 <template #content>
-                    Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+                    ¿Está seguro de que desea eliminar su cuenta? Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Ingrese su contraseña para confirmar que desea eliminar su cuenta de forma permanente.
 
                     <div class="mt-4">
                         <JetInput
@@ -73,7 +73,7 @@ const closeModal = () => {
                             v-model="form.password"
                             type="password"
                             class="mt-1 block w-3/4"
-                            placeholder="Password"
+                            placeholder="Contraseña"
                             @keyup.enter="deleteUser"
                         />
 
@@ -83,7 +83,7 @@ const closeModal = () => {
 
                 <template #footer>
                     <JetSecondaryButton @click="closeModal">
-                        Cancel
+                        Cancelar
                     </JetSecondaryButton>
 
                     <JetDangerButton
@@ -92,7 +92,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
-                        Delete Account
+                        Eliminar Cuenta
                     </JetDangerButton>
                 </template>
             </JetDialogModal>
