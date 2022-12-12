@@ -61,4 +61,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // relationships
+    public function sellOrders()
+    {
+        return $this->hasMany(SellOrder::class);
+    }
 }
