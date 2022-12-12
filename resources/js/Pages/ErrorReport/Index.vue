@@ -1,0 +1,157 @@
+<template>
+  <AppLayout title="Rubrica de puntos">
+    <div class="px-8 mt-3">
+      <div class="flex items-center">
+        <p class="text-xl text-blue-500 ml-6 font-semibold">
+          Reportar Error/Dejar Sugerencia
+        </p>
+      </div>
+      <JetValidationErrors />
+      <form @submit="store" class="mt-6">
+        <div class="lg:grid grid-cols-2 gap-x-3 section-container dark:bg-slate-900">
+          <div class="mt-3">
+            <Label class="dark:text-gray-300" value="Título" />
+            <Input v-model="form.subject" type="text" class="input w-full" />
+          </div>
+          <div class="flex justify-center">
+            <div>
+              <div class="form-check">
+                <input
+                v-model="form.is_error"
+                  class="
+                    form-check-input
+                    appearance-none
+                    rounded-full
+                    h-4
+                    w-4
+                    border border-gray-300
+                    bg-white
+                    dark:border-slate-500
+                    dark:bg-slate-500
+                    checked:bg-green-600 checked:border-green-600
+                    dark:checked:bg-green-600 dark:checked:border-green-600
+                    focus:outline-none
+                    transition
+                    duration-200
+                    mt-1
+                    align-top
+                    bg-no-repeat bg-center bg-contain
+                    float-left
+                    mr-2
+                    cursor-pointer
+                  "
+                  type="radio"
+                  name="bug"
+                  id="bug"
+                  value="1"
+                />
+                <label
+                  class="form-check-label inline-block text-gray-800 dark:text-gray-300"
+                  for="flexRadioDefault1"
+                >
+                  Reportar Error
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                v-model="form.is_error"
+                  class="
+                    form-check-input
+                    appearance-none
+                    rounded-full
+                    h-4
+                    w-4
+                    bg-white
+                      dark:border-slate-500
+                    dark:bg-slate-500
+                    checked:bg-indigo-600 checked:border-indigo-600
+                    dark:checked:bg-indigo-600 dark:checked:border-indigo-600
+                    focus:outline-none
+                    transition
+                    duration-200
+                    mt-1
+                    align-top
+                    bg-no-repeat bg-center bg-contain
+                    float-left
+                    mr-2
+                    cursor-pointer
+                  "
+                  type="radio"
+                  name="bug"
+                  id="sug"
+                  value="0"
+                  checked
+                />
+                <label
+                  class="form-check-label inline-block text-gray-800 dark:text-gray-300"
+                  for="flexRadioDefault2"
+                >
+                  Dejar sugerencia
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 col-span-2">
+            <Label class="dark:text-gray-300" value="Descripción" />
+            <textarea
+              v-model="form.content"
+              class="input w-full !h-20"
+            ></textarea>
+          </div>
+          <div class="mt-3 col-span-2 w-1/2 mx-auto">
+            <progress
+              v-if="form.progress"
+              :value="form.progress.percentage"
+              max="100"
+            >
+              {{ form.progress.percentage }}%
+            </progress>
+          </div>
+        </div>
+        <button type="submit" v-if="!form.processing" class="btn-primary mt-4">
+          Crear
+        </button>
+        <p v-else class="text-sm text-gray-400 mt-4">Cargando...</p>
+      </form>
+    </div>
+  </AppLayout>
+</template>
+
+<script>
+import AppLayout from "@/Layouts/AppLayout.vue";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
+import Input from "@/Jetstream/Input.vue";
+import InputFile from "@/Components/InputFile.vue";
+import FileUploader from "@/Components/FileUploader.vue";
+import Label from "@/Jetstream/Label.vue";
+import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
+
+export default {
+  data() {
+    const form = useForm({
+      subject: '',
+      content: '',
+      is_error: '',
+      resources: [],
+    });
+
+    return { form };
+  },
+  components: {
+    AppLayout,
+    Input,
+    InputFile,
+    FileUploader,
+    Label,
+    JetValidationErrors,
+    Link,
+  },
+  props: {},
+  methods: {
+    store() {
+      this.form.post(route("error-reports.store")
+      );
+    },
+  },
+};
+</script>

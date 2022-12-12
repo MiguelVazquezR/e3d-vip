@@ -7,6 +7,7 @@ use App\Http\Controllers\QuotationController;
 
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ErrorReportController;
 use App\Http\Controllers\PointRubricController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -64,3 +65,6 @@ Route::get('/quotations', [QuotationController::class, 'index'])
 Route::get('/points-rubric', [PointRubricController::class, 'index'])
     ->middleware('auth')
     ->name('pointsRubric.index');
+
+    Route::resource('error-reports', ErrorReportController::class);
+    Route::put('error-reports/mark-as-read/{error}', [ErrorReportController::class, 'markAsRead'])->name('error-reports.mark-as-read');

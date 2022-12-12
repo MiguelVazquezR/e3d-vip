@@ -13,7 +13,7 @@ class StoreErrorReportsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreErrorReportsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'subject' => 'required|max:50',
+            'content' => 'required',
+            'is_error' => 'required',
         ];
     }
 }

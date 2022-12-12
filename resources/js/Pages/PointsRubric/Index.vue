@@ -1,5 +1,5 @@
 <template>
-  <AppLayout title="Órdenes">
+  <AppLayout title="Rubrica de puntos">
     <div class="px-8 py-5">
         <h2 class="py-4 px-5 text-xl text-blue-500 font-semibold">Rúbrica de Puntos</h2>
         <div class="bg-white rounded-lg w-full h-auto px-5 py-3 shadow-md">
@@ -22,7 +22,7 @@
                 <p class="text-gray-500 pl-3 pt-1 pb-5">-Solicitar un nuevo producto sumará 2 puntos a su cuenta.</p>
 
             <span class="text-blue-500">Recomendación para otro Cliente --> 2 pts</span>
-                <p class="text-gray-500 pl-3 pt-1 pb-5">-Se sumarán 2 puntos a su cuenta por rcada recomendación que haga de nuestros productos.</p>
+                <p class="text-gray-500 pl-3 pt-1 pb-5">-Se sumarán 2 puntos a su cuenta por cada recomendación que haga de nuestros productos.</p>
         </div>
       
     </div>
