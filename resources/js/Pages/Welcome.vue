@@ -14,7 +14,7 @@ defineProps({
 
     <div class="h-screen text-xl center bg-gray-800 text-white">
         <div v-if="canLogin" class="hidden px-6 py-4 sm:block">
-            <Link v-if="$page.props.user" :href="route('orders')" class="underline">
+            <Link v-if="$page.props.user" :href="route('orders.index')" class="underline">
                 Ingresar
             </Link>
 

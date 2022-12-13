@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between items-center py-1 mt-2">
-    <!-- <Pagination :pagination="{}" /> -->
-    <InputSearch :filters="{}" filterURL="" class="mb-2 ml-4 flex-1" />
+    <Pagination :pagination="orders" />
+    <!-- <InputSearch :filters="{}" filterURL="" class="mb-2 ml-4 flex-1" /> -->
   </div>
 
   <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -89,10 +89,10 @@
         <tbody>
           <tr v-for="order in orders.data" :key="order.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">{{order.id}}</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{order.folio}}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">{{order.id}}</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{order.products.length}}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <p class="text-gray-900 whitespace-no-wrap">{{order.created_at.special}}</p>
@@ -102,23 +102,19 @@
                 class="
                   relative
                   inline-block
-                  px-3
                   py-1
                   font-semibold
-                  text-green-900
                   leading-tight
                 "
+                :class="order.status.style"
               >
-                <span
-                  aria-hidden
-                  class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                ></span>
-                <span class="relative">{{order.status}}</span>
+                <i class="mr-2" :class="order.status.icon"></i>
+                <span class="relative">{{order.status.text}}</span>
               </span>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <div class="flex justify-end w-full text-xs text-gray-300">
-                <Link href="#" class="mr-2 hover:text-blue-300">
+                <Link :href="route('orders.edit', order)" class="mr-2 hover:text-blue-300">
                   <i class="fa-solid fa-pen"></i>
                 </Link>
                 <button

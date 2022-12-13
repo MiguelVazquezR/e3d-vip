@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SellOrder;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SellOrderResource extends JsonResource
@@ -16,8 +17,16 @@ class SellOrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'folio' => 'OV-'.str_pad($this->id, 4, "0", STR_PAD_LEFT),
+            'products' => SellOrderedProductResource::collection($this->whenLoaded('sellOrderedProducts')),
             'freight_cost' => $this->freight_cost,
-            'status' => $this->status,
+            'status' => match($this->status){
+                SellOrder::STATUS_IN_CHECKING => ['text' => 'En revisión', 'style' => 'text-gray-500', 'icon' => 'fa-solid fa-hourglass-half'],
+                SellOrder::STATUS_IN_PROCESS => ['text' => 'En proceso', 'style' => 'text-orange-500', 'icon' => 'fa-solid fa-spinner'],
+                SellOrder::STATUS_CANCELLED => ['text' => 'Cancelado', 'style' => 'text-red-500', 'icon' => 'fa-solid fa-ban'],
+                SellOrder::STATUS_SHIPPED => ['text' => 'Enviado', 'style' => 'text-blue-500', 'icon' => 'fa-solid fa-truck-fast'],
+                SellOrder::STATUS_RECEIVED => ['text' => 'Recibido', 'style' => 'text-green-500', 'icon' => 'fa-solid fa-check'],
+            },
             'notes' => $this->notes,
             'shipping_company' => $this->shipping_company,
             'tracking_guide' => $this->tracking_guide,

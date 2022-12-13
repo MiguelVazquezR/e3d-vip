@@ -34,13 +34,13 @@ Route::get('/', function () {
 });
 
 Route::resource('awards', AwardController::class)
-->middleware('auth')
-->except('show');
-Route::get('/awards-history', [AwardController::class,'history'])->name('awards.history');
-Route::post('/awards-trade', [AwardController::class,'trade'])->name('awards.trade');
+    ->middleware('auth')
+    ->except('show');
+Route::get('/awards-history', [AwardController::class, 'history'])->name('awards.history');
+Route::post('/awards-trade', [AwardController::class, 'trade'])->name('awards.trade');
 
 
-Route::get('/chat', [ChatController::class,'index'])->name('chat.index');
+Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
 Route::middleware([
     'auth:sanctum',
@@ -53,6 +53,8 @@ Route::middleware([
 });
 
 Route::resource('orders', OrderController::class)->middleware(['auth']);
+// Route::post('/orders/delete-file', [OrderController::class, 'deleteFile'])->name('orders.delete-file');
+// Route::post('/orders/update-with-resources/{order}', [OrderController::class, 'updateWithResources'])->name('orders.update-with-resources');
 
 Route::get('/products', [ProductController::class, 'index'])
     ->middleware('auth')
@@ -66,5 +68,5 @@ Route::get('/points-rubric', [PointRubricController::class, 'index'])
     ->middleware('auth')
     ->name('pointsRubric.index');
 
-    Route::resource('error-reports', ErrorReportController::class);
-    Route::put('error-reports/mark-as-read/{error}', [ErrorReportController::class, 'markAsRead'])->name('error-reports.mark-as-read');
+Route::resource('error-reports', ErrorReportController::class);
+Route::put('error-reports/mark-as-read/{error}', [ErrorReportController::class, 'markAsRead'])->name('error-reports.mark-as-read');
