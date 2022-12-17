@@ -31,7 +31,7 @@
     </template>
     <template #content>
       <p>
-        Está a punto de canjear "Entradas al cine". Se le avisará cuando se le
+        Está a punto de canjear "{{award_to_exchange.title}}". Se le avisará cuando se le
         haga entrega del mismo, ¿Desea continuar?
       </p>
     </template>
@@ -78,13 +78,11 @@ export default {
   methods: {
     exchange() {
       this.show_exchange = false;
-      Inertia.post(route('awards.trade'),{award_id:this.award_to_exchange});
+      Inertia.post(route('awards.trade'),{award_id:this.award_to_exchange.id});
     },
-    preapreExchange(award_id){
-      this.award_to_exchange = award_id;
+    preapreExchange(award){
+      this.award_to_exchange = award;
       this.show_exchange = true;
-
-
     }
   },
   props: {

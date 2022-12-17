@@ -16,7 +16,7 @@
                      <i class="fa-solid fa-gift"></i>
                      <p>{{ award.description }}</p> 
                 </div>
-                <div class="flex space-x-2 text-gray-400 text-sm my-3">
+                <div class="flex space-x-2 text-gray-400 text-sm my-3" :class="{'text-green-500': $page.props.user.points >= award.points}">
                      <i class="fa-solid fa-right-left"></i>
                      <p>{{ award.points }} Puntos</p> 
                 </div>
@@ -29,7 +29,10 @@
                     
                 </div>
                 <div v-else-if="$page.props.user.points >= award.points" class="text-center pt-4">
-                    <button @click="$emit('exchange',award.id)" class="btn-primary">Canjear</button>
+                    <button @click="$emit('exchange',award)" class="btn-primary">Canjear</button>
+                </div>
+                <div v-else class="text-center pt-4">
+                    <button class="btn-primary" disabled title="Puntos insuficientes">Canjear</button>
                 </div>
                 
             </div>

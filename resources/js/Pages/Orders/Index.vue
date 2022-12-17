@@ -4,7 +4,7 @@
       <div class="flex justify-end my-2">
         <Link :href="route('orders.create')" class="btn-primary">Crear</Link>
       </div>
-      <OrdersTable :orders="sell_orders" :filters="{}" filterURL="" />
+      <OrdersTable :orders="sell_orders" :filters="filters" filterURL="/orders" />
     </div>
   </AppLayout>
 </template>

@@ -4,7 +4,7 @@
       -space-x-px
       rounded-md
       shadow-sm
-      mb-2
+      bg-white
     ">
     <template v-for="(link, key) in pagination.meta.links">
       <div :key="key" v-if="link.url == null" class="
@@ -24,7 +24,7 @@
           text-sm
           font-semibold
           border
-          " :class="link.active ? 'bg-indigo-200 text-gray-900  ' : ''" v-html="link.label" />
+          " :class="link.active ? 'bg-blue-200 text-gray-900  ' : ''" v-html="link.label" />
     </template>
   </nav>
 </template>

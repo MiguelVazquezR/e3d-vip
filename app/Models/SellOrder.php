@@ -25,10 +25,22 @@ class SellOrder extends Model implements HasMedia
 
     protected $dates = ['requirement_date', 'received_at'];
 
+    // constants
+    const STATUS_IN_CHECKING = 0,
+          STATUS_IN_PROCESS = 1,
+          STATUS_CANCELLED = 2,
+          STATUS_SHIPPED = 3,
+          STATUS_RECEIVED = 4;
+
     // relationships
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function sellOrderedProducts()
+    {
+        return $this->hasMany(SellOrderedProduct::class);
     }
 
     // query scopes

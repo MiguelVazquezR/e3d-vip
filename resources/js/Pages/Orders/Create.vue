@@ -1,5 +1,5 @@
 <template>
-  <AppLayout title="Crear órden">
+  <AppLayout title="Crear orden">
     <div class="px-8 py-5">
       <JetValidationErrors />
       <div class="flex items-center">
