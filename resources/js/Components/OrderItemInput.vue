@@ -12,16 +12,16 @@
       <select @change="syncItem" v-model="selection" class="input">
         <option value="x">-- Seleccione --</option>
         <option
-          v-for="(product, index) in products"
+          v-for="product in products"
           :key="product.id"
-          :value="index"
+          :value="product.id"
         >
           {{ product.name }}
         </option>
       </select>
       <a
         v-if="selection != 'x'"
-        :href="products[selection].image"
+        :href="products.find(product => {product.id === selection})?.image"
         target="_blank"
         title="Ver imagen del producto"
       >
@@ -72,23 +72,34 @@ export default {
   },
   emits: ['deleteItem', 'syncItem'],
   props: {
-    id: Number
+    id: Number,
+    init_state: {
+      type: Object,
+      default: null,
+    },
   },
   components: {
     Input,
   },
+  mounted(){
+    if(this.init_state!=null){
+      this.selection = this.init_state.product_id;
+      this.quantity = this.init_state.quantity;
+      console.log(this.selection);
+    }
+  },
   computed: {
     getTotal() {
       return this.selection != "x"
-        ? (this.quantity * this.products[this.selection].price).toFixed(2) +
+        ? (this.quantity * this.products.find(product => {product.id === this.selection})?.price).toFixed(2) +
             " " +
-            this.products[this.selection].currency
+            this.products.find(product => {product.id === this.selection})?.currency
         : 0;
     },
     getPrice() {
       return this.selection != "x"
-        ? this.products[this.selection].price + ' ' +
-            this.products[this.selection].currency +
+        ? this.products.find(product => {product.id === this.selection})?.price + ' ' +
+            this.products.find(product => {product.id === this.selection})?.currency +
             " / Unidad"
         : 0;
     },
@@ -96,7 +107,7 @@ export default {
       if (this.selection != 'x' && this.quantity)
         this.$emit('syncItem', {
           id: this.id,
-          product_id: this.products[this.selection].id,
+          product_id: this.selection,
           quantity: this.quantity,
         });
     },
