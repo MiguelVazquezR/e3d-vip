@@ -53,8 +53,8 @@ Route::middleware([
 });
 
 Route::resource('orders', OrderController::class)->middleware(['auth']);
-// Route::post('/orders/delete-file', [OrderController::class, 'deleteFile'])->name('orders.delete-file');
-// Route::post('/orders/update-with-resources/{order}', [OrderController::class, 'updateWithResources'])->name('orders.update-with-resources');
+Route::post('/orders/delete-file', [OrderController::class, 'deleteFile'])->name('orders.delete-file');
+Route::post('/orders/update-with-resources/{order}', [OrderController::class, 'updateWithResources'])->name('orders.update-with-resources');
 
 Route::get('/products', [ProductController::class, 'index'])
     ->middleware('auth')

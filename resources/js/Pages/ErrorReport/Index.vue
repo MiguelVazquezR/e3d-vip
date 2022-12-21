@@ -79,7 +79,7 @@
                   type="radio"
                   name="bug"
                   id="sug"
-                  value="0"
+                  value="2"
                   checked
                 />
                 <label
@@ -131,7 +131,7 @@ export default {
     const form = useForm({
       subject: '',
       content: '',
-      is_error: '',
+      is_error: 2,
       resources: [],
     });
 

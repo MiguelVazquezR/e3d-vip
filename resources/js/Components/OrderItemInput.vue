@@ -85,21 +85,20 @@ export default {
     if(this.init_state!=null){
       this.selection = this.init_state.product_id;
       this.quantity = this.init_state.quantity;
-      console.log(this.selection);
     }
   },
   computed: {
     getTotal() {
       return this.selection != "x"
-        ? (this.quantity * this.products.find(product => {product.id === this.selection})?.price).toFixed(2) +
+        ? (this.quantity * this.products.find(product => {return product.id === this.selection}).price).toFixed(2) +
             " " +
-            this.products.find(product => {product.id === this.selection})?.currency
+            this.products.find(product => {return product.id === this.selection}).currency
         : 0;
     },
     getPrice() {
       return this.selection != "x"
-        ? this.products.find(product => {product.id === this.selection})?.price + ' ' +
-            this.products.find(product => {product.id === this.selection})?.currency +
+        ? this.products.find(product => {return product.id === this.selection}).price + ' ' +
+            this.products.find(product => {return product.id === this.selection}).currency +
             " / Unidad"
         : 0;
     },

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->string('shipping_company')->nullable();
             $table->string('tracking_guide')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('requirement_date');
             $table->timestamp('received_at')->nullable();
 

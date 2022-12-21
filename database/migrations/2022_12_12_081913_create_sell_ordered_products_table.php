@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('status')->default(0);
             $table->text('notes')->nullable();
             $table->unsignedMediumInteger('product_id');
-            $table->foreignId('sell_order_id')->constrained();
+            $table->foreignId('sell_order_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

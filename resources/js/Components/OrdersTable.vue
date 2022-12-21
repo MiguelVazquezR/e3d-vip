@@ -9,8 +9,7 @@
       <table v-if="orders.data.length" class="min-w-full leading-normal">
         <thead>
           <tr>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -20,12 +19,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Folio
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -35,12 +32,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Productos
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -50,12 +45,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Creado el
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -65,68 +58,34 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Status
-            </th>
-            <th
-              class="
-                px-5
-                py-3
-                border-b-2 border-gray-200
-                bg-blue-200
-                text-left text-xs
-                font-semibold
-                text-gray-600
-                uppercase
-                tracking-wider
-              "
-            >
-              
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders.data" :key="order.id" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
+          <tr @click="$inertia.get(route('orders.edit', order))" v-for="order in orders.data" :key="order.id"
+            class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">{{order.folio}}</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ order.folio }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">{{order.products.length}}</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ order.products.length }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">{{order.created_at.special}}</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ order.created_at.special }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <span
-                class="
-                  relative
-                  inline-block
-                  py-1
-                  font-semibold
-                  leading-tight
-                "
-                :class="order.status.style"
-              >
+              <span class="
+                    relative
+                    inline-block
+                    py-1
+                    font-semibold
+                    leading-tight
+                  " :class="order.status.style">
                 <i class="mr-2" :class="order.status.icon"></i>
-                <span class="relative">{{order.status.text}}</span>
+                <span class="relative">{{ order.status.text }}</span>
               </span>
-            </td>
-            <td class="px-5 py-5 border-b text-sm">
-              <div class="flex justify-end w-full text-xs text-gray-300">
-                <Link :href="route('orders.edit', order)" class="mr-2 hover:text-blue-300">
-                  <i class="fa-solid fa-pen"></i>
-                </Link>
-                <button
-                  @click="
-                    delete_confirm = true;
-                    item_to_delete = order;
-                  "
-                  class="mr-2 hover:text-red-300"
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
             </td>
           </tr>
         </tbody>
@@ -149,12 +108,8 @@
     </template>
     <template #footer>
       <div class="flex justify-end">
-        <DangerButton @click="this.delete()" class="mr-3"
-          >Eliminar</DangerButton
-        >
-        <SecondaryButton @click="delete_confirm = false"
-          >Cancelar</SecondaryButton
-        >
+        <DangerButton @click="this.delete()" class="mr-3">Eliminar</DangerButton>
+        <SecondaryButton @click="delete_confirm = false">Cancelar</SecondaryButton>
       </div>
     </template>
   </ConfirmationModal>
@@ -172,7 +127,6 @@ export default {
   data() {
     return {
       delete_confirm: false,
-      item_to_delete: {},
     };
   },
   components: {
@@ -187,18 +141,6 @@ export default {
     orders: Object,
     filters: Object,
     filterURL: String,
-  },
-  methods: {
-    delete() {
-      this.$inertia
-        .delete
-        // this.route("homeworks.destroy", this.item_to_delete)
-        ();
-      this.delete_confirm = false;
-    },
-    // showDetails(prop) {
-    //   this.$emit("details", prop);
-    // },
   },
 };
 </script>
