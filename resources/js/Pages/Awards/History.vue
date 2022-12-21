@@ -23,6 +23,7 @@
           :award="award"
         />
       </div>
+      <p v-if="!awards.length" class="text-gray-500 text-sm text-center my-5">Aún no has canjeado ningún premio</p>
     </div>
   </AppLayout>
 

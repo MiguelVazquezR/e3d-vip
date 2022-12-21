@@ -33,7 +33,7 @@ class OrderController extends Controller
 
     public function edit($order_id)
     {
-        $order = SellOrder::with('sellOrderedProducts')->find($order_id);
+        $order = SellOrderResource::make(SellOrder::with('sellOrderedProducts')->find($order_id));
         $media = $order->getMedia('oce')->all();
         // return $order;
         return inertia('Orders/Edit', compact('order', 'media'));
@@ -61,22 +61,44 @@ class OrderController extends Controller
     {
         $order->update($request->validated());
 
-        return redirect()->route('orders.index')->with('message', 'Se ha actualizado la orden correctamente');
+        $order->sellOrderedProducts()->delete();
+
+        foreach($request->items as $item) {
+            SellOrderedProduct::create($item + ['sell_order_id' => $order->id]);
+        }
+
+        request()->session()->flash('flash.banner', 'Se ha actualizado la orden correctamente');
+        request()->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->route('orders.index');
     }
 
     public function updateWithResources(UpdateOrderRequest $request, SellOrder $order)
     {
         $order->update($request->validated());
-        $order->addAllMediaFromRequest()->each(fn ($file) => $file->toMediaCollection());
 
-        return redirect()->route('orders.index')->with('message', 'Se ha actualizado la orden correctamente'); 
+        $order->sellOrderedProducts()->delete();
+
+        foreach($request->items as $item) {
+            SellOrderedProduct::create($item + ['sell_order_id' => $order->id]);
+        }
+
+        $order->addAllMediaFromRequest()->each(fn ($file) => $file->toMediaCollection('oce'));
+
+        request()->session()->flash('flash.banner', 'Se ha actualizado la orden correctamente');
+        request()->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->route('orders.index'); 
     }
 
     public function destroy(SellOrder $order)
     {
         $order->delete();
 
-        return redirect()->route('orders.index')->with('message', 'Se ha eliminado la orden correctamente');
+        request()->session()->flash('flash.banner', 'Se ha eliminado la orden correctamente');
+        request()->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->route('orders.index');
     }
 
     public function deleteFile(Request $request)
