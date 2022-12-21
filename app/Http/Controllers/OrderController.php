@@ -35,6 +35,7 @@ class OrderController extends Controller
     {
         $order = SellOrder::with('sellOrderedProducts')->find($order_id);
         $media = $order->getMedia('oce')->all();
+        // return $order;
         return inertia('Orders/Edit', compact('order', 'media'));
     }
     

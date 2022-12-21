@@ -33,7 +33,7 @@ class SellOrderResource extends JsonResource
             'user' => $this->user,
             'requirement_date'  => [
                 'relative' => $this->requirement_date?->diffForHumans(),
-                'string' => $this->requirement_date?->toDateTimeString(),
+                'string' => $this->requirement_date?->toDateString(),
                 'special' => $this->requirement_date?->isoFormat('DD MMM, YYYY'),
             ],
             'received_at'  => [

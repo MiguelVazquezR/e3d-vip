@@ -19,7 +19,8 @@
           </div>
           <div>
             <Label value="Fecha de necesidad" />
-            <input v-model="form.requirement_date" type="date" class="input w-full" required />
+            <input v-model="form.requirement_date.split('T')[0]" type="date" class="input w-full" required />
+            <!-- {{ form.items}} -->
           </div>
         </div>
         <div class="lg:grid grid-cols-3 gap-x-2">
@@ -31,8 +32,8 @@
                 }}
                 </a>
                 <button type="button" @click="
-  show_confirmation = true;
-file_to_delete = index;
+                  show_confirmation = true;
+                  file_to_delete = index;
                 " title="Remover archivo">
                   <span class="
                         text-gray-500
@@ -56,7 +57,7 @@ file_to_delete = index;
         </div>
         <div class="my-2">
           <Label class="dark:text-gray-300" value="Productos" />
-          <OrderItem v-for="(item, index) in form.items" :key="item.id" :id="item.id" @deleteItem="deleteItem(index)"
+          <OrderItem v-for="(item, index) in form.items" :key="item.id" :init_state="item" :id="item.id" @deleteItem="deleteItem(index)"
             @syncItem="syncItems(index, $event)" class="mb-2" />
         </div>
         <p v-if="!form.items.length" class="text-sm text-gray-600"> Click al botón de "+" para empezar a agregar
@@ -105,7 +106,7 @@ import { Link, useForm } from "@inertiajs/inertia-vue3";
 export default {
   data() {
     const form = useForm({
-      requirement_date: this.order.requirement_date.string,
+      requirement_date: this.order.requirement_date,
       freight_cost: this.order.freight_cost,
       oce: null,
       notes: this.order.notes,
