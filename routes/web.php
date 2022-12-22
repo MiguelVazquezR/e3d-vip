@@ -59,6 +59,8 @@ Route::post('/orders/update-with-resources/{order}', [OrderController::class, 'u
 Route::get('/products', [ProductController::class, 'index'])
     ->middleware('auth')
     ->name('products.index');
+Route::post('/products/request-new', [ProductController::class, 'requestNew'])->middleware('auth')
+    ->name('products.request-new');
 
 Route::get('/quotations', [QuotationController::class, 'index'])
     ->middleware('auth')
