@@ -10,11 +10,11 @@
       </div>
       <div class="flex justify-between items-center mt-7">
         <h1 class="text-lg lg:text-xl font-bold text-gray-600 ">Otros productos</h1>
-        <button @click="side_modal = true; new_product = false;" class="btn-primary">Solicitar cotización</button>
+        <button @click="side_modal = true; new_product = false;" class="btn-primary" :disabled="!selections.length">Solicitar cotización</button>
       </div>
       <div class="lg:grid grid-cols-3 gap-x-3 mt-4">
-        <ProductCard v-for="(product, index) in other_products" :key="index" :product="product" canSelect
-          class="mb-3" />
+        <ProductCard v-for="(product, index) in other_products" :key="index" :product="product"
+          @selected="selection(product.id)" canSelect class="mb-3" />
       </div>
     </div>
     <DetailsModal :show="side_modal" @close="side_modal = false">
@@ -27,7 +27,7 @@
         </h1>
       </template>
       <template #content>
-        <div v-if="new_product" class="mt-1">
+        <div v-if="new_product">
           <div>
             <Label class="dark:text-gray-300" value="Descripción del producto" />
             <textarea v-model="new_product_form.description" class="input w-full !h-32"></textarea>
@@ -37,20 +37,20 @@
             <FileUploader @input="new_product_form.resources = $event.target.files" />
           </div>
         </div>
-        <div v-else class="mt-1">
-          <div>
+        <div v-else>
+          <div v-for="selection in selections" :key="selection" class="p-2 my-2 border-2 rounded-lg border-blue-200 bg-blue-50">
             <div class="flex items-center py-2">
-              <a href="https://loremflickr.com/640/360" target="_blank">
-                <img class="mr-2 w-12 h-12 rounded-md" src="https://loremflickr.com/640/360" />
+              <a :href="other_products.find(item => item.id === selection)?.image" target="_blank">
+                <img class="mr-2 w-12 h-12 rounded-md" :src="other_products.find(item => item.id === selection)?.image" />
               </a>
               <div class="flex flex-col">
-                <p class="text-gray-600 font-semibold text-sm truncate"> Nombre del producto </p>
+                <p class="text-gray-600 font-semibold text-sm truncate"> {{ other_products.find(item => item.id === selection)?.name }} </p>
               </div>
             </div>
             <Label class="dark:text-gray-300" value="Cantidad a cotizar" />
-            <input  type="number" class="input">
+            <input type="number" class="input">
             <Label class="dark:text-gray-300" value="Notas" />
-            <textarea  class="input w-full !h-20"></textarea>
+            <textarea class="input w-full !h-20"></textarea>
           </div>
         </div>
 
@@ -96,47 +96,55 @@ export default {
       quote_form,
       side_modal: false,
       new_product: false,
+      selections: [],
       products: [
         {
           id: 1,
-          title: "Porta placas con emblema",
+          name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
-          price: 19.43
+          price: 19.43,
+          image:'https://loremflickr.com/640/360'
         },
         {
           id: 2,
-          title: "Llavero con medallón",
+          name: "Llavero con medallón",
           features: ['Emblema con tu logo', 'Metal cromado', 'medallón con grabado láser'],
-          price: 44.90
+          price: 44.90,
+          image:'https://loremflickr.com/640/360'
         },
         {
           id: 3,
-          title: "Tapete de uso rudo",
+          name: "Tapete de uso rudo",
           features: ['Emblema con tu logo', 'Hule resistente color negro'],
-          price: 365.20
+          price: 365.20,
+          image:'https://loremflickr.com/640/360'
         },
         {
           id: 4,
-          title: "Porta placas con emblema",
+          name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
-          price: 19.43
+          price: 19.43,
+          image:'https://loremflickr.com/640/360'
         },
       ],
       other_products: [
         {
           id: 5,
-          title: "Porta placas con emblema",
+          name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
+          image:'https://loremflickr.com/640/360'
         },
         {
           id: 6,
-          title: "Llavero con medallón",
+          name: "Llavero con medallón",
           features: ['Emblema con tu logo', 'Metal cromado', 'medallón con grabado láser'],
+          image:'https://loremflickr.com/640/360'
         },
         {
           id: 7,
-          title: "Tapete de uso rudo",
+          name: "Tapete de uso rudo",
           features: ['Emblema con tu logo', 'Hule resistente color negro'],
+          image:'https://loremflickr.com/640/360'
         },
       ]
     };
@@ -150,5 +158,15 @@ export default {
     FileUploader,
     ButtonWithLoading,
   },
+  methods: {
+    selection(product_id) {
+      if (this.selections.find(item => item === product_id)) {
+        const index = this.selections.indexOf(product_id);
+        this.selections.splice(index, 1);
+      } else {
+        this.selections.push(product_id);
+      }
+    },
+  }
 };
 </script>
