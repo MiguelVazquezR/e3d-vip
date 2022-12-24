@@ -7,7 +7,6 @@
       <QuotationTable :quotations="{data: [12, 22]}" :filters="{}" filterURL="" @details="showDetails($event)" />
     </div>
 
-
     <DetailsModal :show="side_modal" @close="side_modal = false">
       <template #title>
         <!-- <div class="flex flex-col">

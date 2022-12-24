@@ -10,4 +10,9 @@ class ProductController extends Controller
     {
         return inertia('Products/Index');
     }
+
+    public function requestNew(Request $request)
+    {
+        return $request->all();
+    }
 }
