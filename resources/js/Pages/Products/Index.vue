@@ -10,7 +10,8 @@
       </div>
       <div class="flex justify-between items-center mt-7">
         <h1 class="text-lg lg:text-xl font-bold text-gray-600 ">Otros productos</h1>
-        <button @click="side_modal = true; new_product = false;" class="btn-primary" :disabled="!selections.length">Solicitar cotización</button>
+        <button @click="side_modal = true; new_product = false;" class="btn-primary"
+          :disabled="!quote_form.products.length">Solicitar cotización</button>
       </div>
       <div class="lg:grid grid-cols-3 gap-x-3 mt-4">
         <ProductCard v-for="(product, index) in other_products" :key="index" :product="product"
@@ -25,6 +26,8 @@
         <h1 v-else class="text-blue-600 text-xl font-semibold">
           Cotizar producto(s)
         </h1>
+        <p v-if="quote_form.hasErrors" id="validation" class="text-red-600 text-sm">Error: Las cantidades a cotizar
+          deben de ser mayor a 0</p>
       </template>
       <template #content>
         <div v-if="new_product">
@@ -38,19 +41,23 @@
           </div>
         </div>
         <div v-else>
-          <div v-for="selection in selections" :key="selection" class="p-2 my-2 border-2 rounded-lg border-blue-200 bg-blue-50">
+          <div v-for="(selection, index) in quote_form.products" :key="selection.product_id"
+            class="p-2 my-2 border-2 rounded-lg border-blue-200 bg-blue-50">
             <div class="flex items-center py-2">
-              <a :href="other_products.find(item => item.id === selection)?.image" target="_blank">
-                <img class="mr-2 w-12 h-12 rounded-md" :src="other_products.find(item => item.id === selection)?.image" />
+              <a :href="other_products.find(item => item.id === selection.product_id)?.image" target="_blank">
+                <img class="mr-2 w-12 h-12 rounded-md"
+                  :src="other_products.find(item => item.id === selection.product_id)?.image" />
               </a>
               <div class="flex flex-col">
-                <p class="text-gray-600 font-semibold text-sm truncate"> {{ other_products.find(item => item.id === selection)?.name }} </p>
+                <p class="text-gray-600 font-semibold text-sm truncate"> {{ other_products.find(item => item.id ===
+                    selection.product_id)?.name
+                }} </p>
               </div>
             </div>
             <Label class="dark:text-gray-300" value="Cantidad a cotizar" />
-            <input type="number" class="input">
+            <input v-model="quote_form.products[index].quantity" type="number" class="input">
             <Label class="dark:text-gray-300" value="Notas" />
-            <textarea class="input w-full !h-20"></textarea>
+            <textarea v-model="quote_form.products[index].notes" class="input w-full !h-20"></textarea>
           </div>
         </div>
 
@@ -59,8 +66,8 @@
         <div class="flex">
           <ButtonWithLoading v-if="new_product" @click="new_product_form.post(route('products.request-new'))"
             :processing="new_product_form.processing" label="Solicitar" loading_label="Enviando..." />
-          <ButtonWithLoading v-else @click="quote_form.post(route('products.request-new'))"
-            :processing="quote_form.processing" label="Cotizar" loading_label="Enviando..." />
+          <ButtonWithLoading v-else @click="sendQuoteForm" :processing="quote_form.processing" label="Cotizar"
+            loading_label="Enviando..." />
           <button @click="side_modal = false" class="btn-secondary mx-1">
             Cerrar
           </button>
@@ -94,37 +101,37 @@ export default {
     return {
       new_product_form,
       quote_form,
+      validation_message: null,
       side_modal: false,
       new_product: false,
-      selections: [],
       products: [
         {
           id: 1,
           name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
           price: 19.43,
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
         {
           id: 2,
           name: "Llavero con medallón",
           features: ['Emblema con tu logo', 'Metal cromado', 'medallón con grabado láser'],
           price: 44.90,
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
         {
           id: 3,
           name: "Tapete de uso rudo",
           features: ['Emblema con tu logo', 'Hule resistente color negro'],
           price: 365.20,
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
         {
           id: 4,
           name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
           price: 19.43,
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
       ],
       other_products: [
@@ -132,19 +139,19 @@ export default {
           id: 5,
           name: "Porta placas con emblema",
           features: ['Emblema con tu logo', 'portaplacas de ABS negro', 'Impresión en la parte superior (de 1 a 3 tintas)'],
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
         {
           id: 6,
           name: "Llavero con medallón",
           features: ['Emblema con tu logo', 'Metal cromado', 'medallón con grabado láser'],
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
         {
           id: 7,
           name: "Tapete de uso rudo",
           features: ['Emblema con tu logo', 'Hule resistente color negro'],
-          image:'https://loremflickr.com/640/360'
+          image: 'https://loremflickr.com/640/360'
         },
       ]
     };
@@ -159,12 +166,21 @@ export default {
     ButtonWithLoading,
   },
   methods: {
-    selection(product_id) {
-      if (this.selections.find(item => item === product_id)) {
-        const index = this.selections.indexOf(product_id);
-        this.selections.splice(index, 1);
+    selection(product_id, index) {
+      if (this.quote_form.products.find(item => item.product_id === product_id)) {
+        const index = this.quote_form.products.findIndex(item => item.product_id === product_id);
+        console.log(index);
+        this.quote_form.products.splice(index, 1);
       } else {
-        this.selections.push(product_id);
+        this.quote_form.products.push({ product_id: product_id, quantity: null, notes: null });
+      }
+    },
+    sendQuoteForm() {
+      if (this.quote_form.products.some(element => element.quantity === null || element.quantity <= 0)) {
+        this.quote_form.hasErrors = true;
+      } else {
+        this.validation_message = null;
+        this.quote_form.post(route('products.quote'));
       }
     },
   }

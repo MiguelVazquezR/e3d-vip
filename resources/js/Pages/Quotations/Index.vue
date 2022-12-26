@@ -4,7 +4,7 @@
       <div class="flex justify-end my-3">
         <button class="btn-primary">Solicitar</button>
       </div>
-      <QuotationTable :quotations="{data: [12, 22]}" :filters="{}" filterURL="" @details="showDetails($event)" />
+      <QuotationTable :quotations="quotations" :filters="{}" filterURL="" @details="showDetails($event)" />
     </div>
 
     <DetailsModal :show="side_modal" @close="side_modal = false">
@@ -119,7 +119,7 @@ export default {
     DetailsModal,
   },
   props:{
-
+    quotations: Object,
   },
   methods:{
     showDetails(item) {

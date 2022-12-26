@@ -89,6 +89,22 @@
                 px-5
                 py-3
                 border-b-2 border-gray-200
+               bg-blue-200
+                text-xs
+                font-semibold
+                text-gray-600
+                text-left
+                uppercase
+                tracking-wider
+              "
+            >
+              Status
+            </th>
+            <th
+              class="
+                px-5
+                py-3
+                border-b-2 border-gray-200
                 bg-blue-200
                 text-right text-xs
                 font-semibold
@@ -104,19 +120,31 @@
         <tbody>
           <tr v-for="quotation in quotations.data" :key="quotation.id" @click="showDetails(quotation)" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">0050</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.folio }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Llavero (100 pzs), portaplacas (250 pzs)</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.products.length }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.created_at }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm text-right">
-              <p class="text-gray-900 whitespace-no-wrap">$650.00</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.freight_cost }}</p>
             </td>
             <td class="px-5 py-5 border-b text-sm text-right">
-              <p class="text-gray-900 whitespace-no-wrap">$5,552.00</p>
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.tooling_cost }}</p>
+            </td>
+            <td class="px-5 py-5 border-b text-sm">
+              <span class="
+                    relative
+                    inline-block
+                    py-1
+                    font-semibold
+                    leading-tight
+                  " :class="quotation.status.style">
+                <i class="mr-2" :class="quotation.status.icon"></i>
+                <span class="relative">{{ quotation.status.text }}</span>
+              </span>
             </td>
             <td class="px-5 py-5 border-b text-sm">
               <div class="flex justify-end w-full text-xs text-gray-300">
