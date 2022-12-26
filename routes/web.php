@@ -61,6 +61,8 @@ Route::get('/products', [ProductController::class, 'index'])
     ->name('products.index');
 Route::post('/products/request-new', [ProductController::class, 'requestNew'])->middleware('auth')
     ->name('products.request-new');
+Route::post('/products/quote', [ProductController::class, 'quote'])->middleware('auth')
+    ->name('products.quote');
 
 Route::get('/quotations', [QuotationController::class, 'index'])
     ->middleware('auth')
