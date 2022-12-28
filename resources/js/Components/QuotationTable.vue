@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between items-center py-1 mt-2">
-    <!-- <Pagination :pagination="{}" /> -->
-    <InputSearch :filters="{}" filterURL="" class="mb-2 ml-4 flex-1" />
+    <Pagination :pagination="quotations" />
+    <InputSearch :filters="{}" filterURL="" class="ml-4 flex-1" />
   </div>
 
   <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -52,7 +52,7 @@
                 tracking-wider
               "
             >
-              Creado el
+              Solicitado el
             </th>
             <th
               class="
@@ -70,6 +70,20 @@
               Flete
             </th>
             <th
+              class="
+                px-5
+                py-3
+                border-b-2 border-gray-200
+               bg-blue-200
+                text-right text-xs
+                font-semibold
+                text-gray-600
+                uppercase
+                tracking-wider
+              "
+            >
+              Herramental
+            </th><th
               class="
                 px-5
                 py-3
@@ -100,21 +114,6 @@
             >
               Status
             </th>
-            <th
-              class="
-                px-5
-                py-3
-                border-b-2 border-gray-200
-                bg-blue-200
-                text-right text-xs
-                font-semibold
-                text-gray-600
-                uppercase
-                tracking-wider
-              "
-            >
-              
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -134,6 +133,9 @@
             <td class="px-5 py-5 border-b text-sm text-right">
               <p class="text-gray-900 whitespace-no-wrap">{{ quotation.tooling_cost }}</p>
             </td>
+            <td class="px-5 py-5 border-b text-sm text-right">
+              <p class="text-gray-900 whitespace-no-wrap">{{ quotation.total }}</p>
+            </td>
             <td class="px-5 py-5 border-b text-sm">
               <span class="
                     relative
@@ -145,22 +147,6 @@
                 <i class="mr-2" :class="quotation.status.icon"></i>
                 <span class="relative">{{ quotation.status.text }}</span>
               </span>
-            </td>
-            <td class="px-5 py-5 border-b text-sm">
-              <div class="flex justify-end w-full text-xs text-gray-300">
-                <Link href="#" class="mr-2 hover:text-blue-300">
-                  <i class="fa-solid fa-pen"></i>
-                </Link>
-                <button
-                  @click="
-                    delete_confirm = true;
-                    item_to_delete = quotation;
-                  "
-                  class="mr-2 hover:text-red-300"
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
             </td>
           </tr>
         </tbody>
