@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('seller_id')->nullable();
-            $table->foreign('seller_id')->references('id')->on('users');
             $table->foreignId('user_id')->constrained();
             $table->timestamp('released_at')->nullable();
             $table->unsignedTinyInteger('status')->default(Quotation::STATUS_IN_CHECKING);

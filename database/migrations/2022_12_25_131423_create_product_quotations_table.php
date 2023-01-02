@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('quotation_id')->constrained()->onDelete('cascade');
             $table->unsignedMediumInteger('product_id');
             $table->unsignedFloat('quantity');
+            $table->unsignedFloat('price')->nullable();
             $table->boolean('is_composed_product')->default(1);
             $table->text('notes')->nullable();
 

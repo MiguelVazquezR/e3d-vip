@@ -169,7 +169,6 @@ export default {
     selection(product_id, index) {
       if (this.quote_form.products.find(item => item.product_id === product_id)) {
         const index = this.quote_form.products.findIndex(item => item.product_id === product_id);
-        console.log(index);
         this.quote_form.products.splice(index, 1);
       } else {
         this.quote_form.products.push({ product_id: product_id, quantity: null, notes: null });
