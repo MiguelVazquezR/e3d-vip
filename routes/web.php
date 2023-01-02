@@ -64,13 +64,11 @@ Route::post('/products/request-new', [ProductController::class, 'requestNew'])->
 Route::post('/products/quote', [ProductController::class, 'quote'])->middleware('auth')
     ->name('products.quote');
 
-Route::get('/quotations', [QuotationController::class, 'index'])
-    ->middleware('auth')
-    ->name('quotations.index');
 
 Route::get('/points-rubric', [PointRubricController::class, 'index'])
     ->middleware('auth')
     ->name('pointsRubric.index');
 
+Route::resource('/quotations', QuotationController::class);
 Route::resource('error-reports', ErrorReportController::class);
 Route::put('error-reports/mark-as-read/{error}', [ErrorReportController::class, 'markAsRead'])->name('error-reports.mark-as-read');

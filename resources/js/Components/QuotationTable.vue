@@ -9,8 +9,7 @@
       <table v-if="quotations.data.length" class="min-w-full leading-normal">
         <thead>
           <tr>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -20,12 +19,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Folio
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -35,12 +32,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Productos
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -50,12 +45,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Solicitado el
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -65,12 +58,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Flete
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -80,11 +71,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Herramental
-            </th><th
-              class="
+            </th>
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -94,12 +84,10 @@
                 text-gray-600
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Total sin IVA
             </th>
-            <th
-              class="
+            <th class="
                 px-5
                 py-3
                 border-b-2 border-gray-200
@@ -110,14 +98,14 @@
                 text-left
                 uppercase
                 tracking-wider
-              "
-            >
+              ">
               Status
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="quotation in quotations.data" :key="quotation.id" @click="showDetails(quotation)" class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
+          <tr v-for="quotation in quotations.data" :key="quotation.id" @click="showDetails(quotation)"
+            class="cursor-pointer border-gray-200 bg-white hover:bg-gray-100">
             <td class="px-5 py-5 border-b  text-sm">
               <p class="text-gray-900 whitespace-no-wrap">{{ quotation.folio }}</p>
             </td>
@@ -156,53 +144,22 @@
       </div>
     </div>
   </div>
-
-  <ConfirmationModal :show="delete_confirm" @close="delete_confirm = false">
-    <template #title>
-      <div>¿Deseas continuar?</div>
-    </template>
-    <template #content>
-      <div>
-        Estás a punto de eliminar una cotización, una vez realizado ya no se podrá
-        recuperar
-      </div>
-    </template>
-    <template #footer>
-      <div class="flex justify-end">
-        <DangerButton @click="this.delete()" class="mr-3"
-          >Eliminar</DangerButton
-        >
-        <SecondaryButton @click="delete_confirm = false"
-          >Cancelar</SecondaryButton
-        >
-      </div>
-    </template>
-  </ConfirmationModal>
 </template>
 
 <script>
 import Pagination from "@/Components/Pagination.vue";
 import InputSearch from "@/Components/InputSearch.vue";
-import { Link } from "@inertiajs/inertia-vue3";
-import ConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
-import DangerButton from "@/Jetstream/DangerButton.vue";
-import SecondaryButton from "@/Jetstream/SecondaryButton.vue";
 
 export default {
   data() {
     return {
-      delete_confirm: false,
-      item_to_delete: {},
+      
     };
   },
   emits: ['details'],
   components: {
     Pagination,
     InputSearch,
-    Link,
-    DangerButton,
-    ConfirmationModal,
-    SecondaryButton,
   },
   props: {
     quotations: Object,
@@ -210,15 +167,11 @@ export default {
     filterURL: String,
   },
   methods: {
-    delete() {
-      this.$inertia
-        .delete
-        // this.route("homeworks.destroy", this.item_to_delete)
-        ();
-      this.delete_confirm = false;
-    },
-    showDetails(prop) {
-      this.$emit("details", prop);
+    showDetails(quotation) {
+      if (quotation.status.code === 0)
+        this.$emit("details", quotation);
+      else
+        this.$inertia.get(route('quotations.show', quotation));
     },
   },
 };
