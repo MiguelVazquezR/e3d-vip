@@ -35,6 +35,8 @@ class QuotationController extends Controller
         $quotation = QuotationResource::make(Quotation::with('seller', 'user', 'products')
             ->find($quotation->id));
 
+        // return $quotation;
+
         return inertia('Quotations/Show', compact('quotation'));
     }
 
@@ -52,6 +54,16 @@ class QuotationController extends Controller
         }
 
         request()->session()->flash('flash.banner', 'Se han guardado los cambios');
+        request()->session()->flash('flash.bannerStyle', 'success');
+
+        return redirect()->route('quotations.index');
+    }
+
+    public function destroy(Quotation $quotation)
+    {
+        $quotation->delete();
+
+        request()->session()->flash('flash.banner', 'Se ha eliminado la cotización');
         request()->session()->flash('flash.bannerStyle', 'success');
 
         return redirect()->route('quotations.index');

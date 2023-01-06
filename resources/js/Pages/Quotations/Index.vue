@@ -74,7 +74,7 @@
       </template>
       <template #footer>
         <div class="flex justify-end">
-          <button @click="this.delete()" class="btn-danger mr-3">Eliminar</button>
+          <button @click="deleteItem" class="btn-danger mr-3">Eliminar</button>
           <button @click="delete_confirm = false" class="btn-secondary">Cancelar</button>
         </div>
       </template>
@@ -136,16 +136,14 @@ export default {
   },
   methods: {
     showDetails(item) {
-      // load products to form 
-      // item.products.forEach(product => {
-      //   this.form.products.push(this.quotation_detail.products);
-      // });
       this.form.products = item.products;
 
       this.quotation_detail = item;
       this.side_modal = true;
     },
     deleteItem() {
+      this.delete_confirm = false;
+      this.side_modal = false;
       this.$inertia.delete(route('quotations.destroy', this.quotation_detail));
     },
   },

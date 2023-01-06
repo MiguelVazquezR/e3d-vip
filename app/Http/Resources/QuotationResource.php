@@ -35,6 +35,7 @@ class QuotationResource extends JsonResource
             'freight_cost' => $this->freight_cost ? $this->currency ." ". number_format($this->freight_cost, 2) : '---',
             'tooling_cost' => $this->tooling_cost ? $this->currency ." ". number_format($this->tooling_cost, 2) : '---',
             'currency' => $this->currency,
+            'first_production_days' => $this->first_production_days,
             'created_at' => $this->created_at->isoFormat('DD MMM, YYYY - hh:mm a'),
         ];
     }
