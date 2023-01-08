@@ -11,10 +11,11 @@
         <i class="fa-solid fa-print mr-1"></i>
         Imprimir
       </button>
-      <button class="btn-primary my-3 ml-2">
+      <button @click="show_confirmation = true" v-if="!quotation.data.status_is.approved" class="btn-primary my-3 ml-2">
         <i class="fa-regular fa-circle-check mr-1"></i>
         Aprobar
       </button>
+      <span v-else class="text-sm text-green-600 ml-2 rounded-full px-1 py-px bg-green-100">Orden generada</span>
     </div>
     <section class="bg-white px-2 py-1 relative">
 
@@ -92,13 +93,15 @@
           <ol class="list-decimal mx-2 mb-2">
             <li>PRECIOS ANTES DE IVA</li>
             <li>COSTO DE HERRAMENTAL:
-            <span class="font-bold text-blue-500">{{ quotation.data.tooling_cost }}</span>
+              <span class="font-bold text-blue-500">{{ quotation.data.tooling_cost }}</span>
             </li>
             <li>TIEMPO DE ENTREGA PARA LA PRIMER PRODUCCIÓN <span class="font-bold text-blue-500">{{
-            quotation.data.first_production_days }}</span>.
+              quotation.data.first_production_days
+            }}</span>.
               EL TIEMPO CORRE UNA VEZ PAGANDO EL 100% DEL HERRAMENTAL Y EL 50% DE LOS PRODUCTOS.</li>
             <li>FLETES Y ACARREOS CORREN POR CUENTA DEL CLIENTE: <span class="font-bold text-blue-500">{{
-            quotation.data.freight_cost }}</span></li>
+              quotation.data.freight_cost
+            }}</span></li>
             <li>PRECIOS EN <span class="font-bold text-blue-500">{{ quotation.data.currency }}</span></li>
             <li>COTIZACIÓN VÁLIDA POR 21 DÍAS. EL PRODUCTO ESTÁ SUJETO A LA REVISIÓN DEL DISEÑO FINAL, PRUEBAS Y
               SUBSECUENTE APROBACIÓN</li>
@@ -165,24 +168,49 @@
               LLAVERO USB, diseño original y personalizado, todo con molde único para tu
               empresa (personalización total y exclusiva).
             </p>
-            
+
           </div>
         </footer>
 
       </div>
 
     </section>
+    <ConfirmationModal :show="show_confirmation" @close="show_confirmation = false">
+      <template #title>
+        <div>¿Deseas continuar?</div>
+      </template>
+      <template #content>
+        <JetValidationErrors />
+        <div>
+          <p>Se generará una nueva orden y se notificará a la administración
+          para despachar la misma.</p>
+          <Label class="dark:text-gray-300 mt-2" value="Fecha de necesidad" />
+          <input v-model="requirement_date" type="date" class="input w-full">
+        </div>
+      </template>
+      <template #footer>
+        <div class="flex justify-end">
+          <button @click="approve" class="btn-danger mr-3" :disabled="!requirement_date">Continuar</button>
+          <button @click="show_confirmation = false" class="btn-secondary">Cancelar</button>
+        </div>
+      </template>
+    </ConfirmationModal>
   </AppLayout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
+import ConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
+import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
+import Label from "@/Jetstream/Label.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
   data() {
     return {
+      show_confirmation: false,
+      requirement_date: null,
       products_list: [
         {
           id: 7,
@@ -202,13 +230,21 @@ export default {
   components: {
     AppLayout,
     ApplicationLogo,
+    ConfirmationModal,
+    JetValidationErrors,
+    Label,
     Link,
   },
   props: {
     quotation: Object,
   },
   methods: {
-
+    approve() {
+      this.$inertia.post(route('quotations.approve', {
+        requirement_date: this.requirement_date,
+        quotation_id: this.quotation.data.id,
+      }));
+    }
   },
   mounted() {
     // bring only the products related with the quotation and 

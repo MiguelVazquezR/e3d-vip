@@ -70,5 +70,8 @@ Route::get('/points-rubric', [PointRubricController::class, 'index'])
     ->name('pointsRubric.index');
 
 Route::resource('/quotations', QuotationController::class);
+Route::post('/quotations/approve', [QuotationController::class, 'approve'])->middleware('auth')
+    ->name('quotations.approve');
+
 Route::resource('error-reports', ErrorReportController::class);
 Route::put('error-reports/mark-as-read/{error}', [ErrorReportController::class, 'markAsRead'])->name('error-reports.mark-as-read');

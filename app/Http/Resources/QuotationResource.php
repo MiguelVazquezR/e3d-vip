@@ -28,10 +28,15 @@ class QuotationResource extends JsonResource
             'total' => $total ? $this->currency ." ". number_format($total, 2) : '---',
             'released_at' => $this->released_at?->isoFormat('DD MMM, YYYY - hh:mm a'),
             'status' => match($this->status){
-                Quotation::STATUS_IN_CHECKING => ['code' => Quotation::STATUS_IN_CHECKING, 'text' => 'En revisión', 'style' => 'text-gray-500', 'icon' => 'fa-solid fa-hourglass-half'],
-                Quotation::STATUS_GENERATED => ['code' => Quotation::STATUS_GENERATED, 'text' => 'Esperando su aprovación', 'style' => 'text-orange-500', 'icon' => 'fa-solid fa-ellipsis'],
-                Quotation::STATUS_APPROVED => ['code' => Quotation::STATUS_APPROVED, 'text' => 'Aprobado', 'style' => 'text-green-500', 'icon' => 'fa-solid fa-check'],
+                Quotation::STATUS_IN_CHECKING => ['text' => 'En revisión', 'style' => 'text-gray-500', 'icon' => 'fa-solid fa-hourglass-half'],
+                Quotation::STATUS_GENERATED => ['text' => 'Esperando su aprovación', 'style' => 'text-orange-500', 'icon' => 'fa-solid fa-ellipsis'],
+                Quotation::STATUS_APPROVED => ['text' => 'Aprobado', 'style' => 'text-green-500', 'icon' => 'fa-solid fa-check'],
             },
+            'status_is' => [
+                'in_checking' => $this->status === Quotation::STATUS_IN_CHECKING,
+                'generated' => $this->status === Quotation::STATUS_GENERATED,
+                'approved' => $this->status === Quotation::STATUS_APPROVED,
+            ],
             'freight_cost' => $this->freight_cost ? $this->currency ." ". number_format($this->freight_cost, 2) : '---',
             'tooling_cost' => $this->tooling_cost ? $this->currency ." ". number_format($this->tooling_cost, 2) : '---',
             'currency' => $this->currency,
