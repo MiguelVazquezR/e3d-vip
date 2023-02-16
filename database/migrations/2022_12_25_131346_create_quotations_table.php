@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedFloat('freight_cost')->nullable();
             $table->unsignedFloat('tooling_cost')->nullable();
             $table->string('currency', 5)->nullable();
+            $table->string('first_production_days')->defaul('2 semanas');
 
             $table->timestamps();
         });

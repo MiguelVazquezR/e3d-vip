@@ -22,6 +22,7 @@ class Quotation extends Model
         'freight_cost',
         'tooling_cost',
         'currency',
+        'first_production_days',
     ];
 
     protected $dates = ['released_at'];
