@@ -13,6 +13,7 @@ class ProductQuotation extends Model
         'quotation_id',
         'product_id',
         'quantity',
+        'price',
         'is_composed_product',
         'notes',
     ];
@@ -21,6 +22,11 @@ class ProductQuotation extends Model
     public function quotation()
     {
         return $this->belongsTo(Quotation::class);
+    }
+
+    public function total()
+    {
+        return $this->quantity * $this->price;
     }
 
 }

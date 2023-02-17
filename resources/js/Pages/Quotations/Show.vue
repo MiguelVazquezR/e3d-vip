@@ -55,16 +55,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(product, index) in products_list" :key="product.id" class="bg-gray-200 text-gray-700">
-              <td class="px-2 py-px">{{ product.family }}</td>
-              <td class="px-2 py-px">{{ product.name }}</td>
+            <tr v-for="(product, index) in quotation.data.products" :key="product.id"
+              class="bg-gray-200 text-gray-700 cursor-pointer hover:bg-blue-100"
+              @click="openGalery(product)">
+              <td class="px-2 py-px">{{ products_list.find(_product => _product.id == product.product_id)?.family }}
+              </td>
+              <td class="px-2 py-px">{{ products_list.find(_product => _product.id == product.product_id)?.name }}</td>
               <td class="px-2 py-px">
-                {{ quotation.data.products[index].notes }}
+                {{ product.notes }}
               </td>
-              <td class="px-2 py-px">{{ quotation.data.currency }} {{ quotation.data.products[index].price }}
+              <td class="px-2 py-px">{{ quotation.data.currency }} {{ product.price }}
               </td>
-              <td class="px-2 py-px">{{ quotation.data.products[index].quantity }}</td>
-              <td class="px-2 py-px">{{ 'quotation.data.products[index].total' }}</td>
+              <td class="px-2 py-px">{{ product.quantity }}</td>
+              <td class="px-2 py-px">{{ product.total }}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -183,7 +186,7 @@
         <JetValidationErrors />
         <div>
           <p>Se generará una nueva orden y se notificará a la administración
-          para despachar la misma.</p>
+            para despachar la misma.</p>
           <Label class="dark:text-gray-300 mt-2" value="Fecha de necesidad" />
           <input v-model="requirement_date" type="date" class="input w-full">
         </div>
@@ -195,6 +198,32 @@
         </div>
       </template>
     </ConfirmationModal>
+
+    <DialogModal :show="show_dialog" @close="show_dialog = false">
+      <template #title>
+        <div>Galería de <b class="text-blue-500">{{ galery_to_show.product_name }}</b></div>
+      </template>
+      <template #content>
+        <Carousel>
+          <Slide v-for="(image_url, index) in galery_to_show.images" :key="index">
+            <figure>
+              <img class="rounded-md object-cover" :src="image_url">
+            </figure>
+          </Slide>
+
+          <template #addons>
+            <Navigation/>
+            <Pagination />
+          </template>
+        </Carousel>
+      </template>
+      <template #footer>
+        <div class="flex justify-end">
+          <button @click="show_dialog = false" class="btn-secondary">Salir</button>
+        </div>
+      </template>
+    </DialogModal>
+
   </AppLayout>
 </template>
 
@@ -202,14 +231,21 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ApplicationLogo from "@/Jetstream/ApplicationLogo.vue";
 import ConfirmationModal from "@/Jetstream/ConfirmationModal.vue";
+import DialogModal from "@/Jetstream/DialogModal.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
 import Label from "@/Jetstream/Label.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+
+import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
+
+import 'vue3-carousel/dist/carousel.css';
 
 export default {
   data() {
     return {
       show_confirmation: false,
+      show_dialog: false,
+      galery_to_show: null,
       requirement_date: null,
       products_list: [
         {
@@ -218,6 +254,11 @@ export default {
           features: ['Emblema con tu logo', 'Hule resistente color negro'],
           image: 'https://loremflickr.com/640/360',
           family: 'Tapete',
+          galery: [
+          'https://loremflickr.com/540/360',
+          'https://loremflickr.com/640/360',
+          'https://loremflickr.com/440/260',
+          ]
         },
       ],
       seller: {
@@ -231,9 +272,14 @@ export default {
     AppLayout,
     ApplicationLogo,
     ConfirmationModal,
+    DialogModal,
     JetValidationErrors,
     Label,
     Link,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   props: {
     quotation: Object,
@@ -244,7 +290,15 @@ export default {
         requirement_date: this.requirement_date,
         quotation_id: this.quotation.data.id,
       }));
-    }
+    },
+    openGalery(product) {
+      const _product = this.products_list.find(_product => _product.id == product.product_id);
+      this.show_dialog = true;
+      this.galery_to_show = {
+        product_name: _product.name, 
+        images: _product.galery
+      };
+    },
   },
   mounted() {
     // bring only the products related with the quotation and 

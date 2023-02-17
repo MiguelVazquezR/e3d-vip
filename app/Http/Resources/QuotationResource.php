@@ -24,7 +24,7 @@ class QuotationResource extends JsonResource
             'folio' => 'VIPC-'.str_pad($this->id, 4, "0", STR_PAD_LEFT),
             'user' => $this->whenLoaded('user'),
             'seller' => $this->whenLoaded('seller'),
-            'products' => $this->whenLoaded('products'),
+            'products' => ProductQuotationResource::collection($this->whenLoaded('products')),
             'total' => $total ? $this->currency ." ". number_format($total, 2) : '---',
             'released_at' => $this->released_at?->isoFormat('DD MMM, YYYY - hh:mm a'),
             'status' => match($this->status){
