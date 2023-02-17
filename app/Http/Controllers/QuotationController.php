@@ -23,7 +23,6 @@ class QuotationController extends Controller
             ->latest()
             ->paginate(15));
 
-        // return $quotations;
         return inertia('Quotations/Index', compact('quotations'));
     }
 
@@ -36,8 +35,6 @@ class QuotationController extends Controller
         // add relations to instance
         $quotation = QuotationResource::make(Quotation::with('seller', 'user', 'products')
             ->find($quotation->id));
-
-        // return $quotation;
 
         return inertia('Quotations/Show', compact('quotation'));
     }
@@ -73,7 +70,7 @@ class QuotationController extends Controller
 
     public function approve(Request $request)
     {
-        $request->validate(['requirement_date' => 'required|date|after:'.now()->addDays(6)->toDateString()]);
+        $request->validate(['requirement_date' => 'required|date|after:' . now()->addDays(6)->toDateString()]);
 
         $quotation = Quotation::find($request->quotation_id);
 
