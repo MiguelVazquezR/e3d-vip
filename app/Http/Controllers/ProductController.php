@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NewProductRequestResource;
+use App\Models\NewProductRequest;
 use App\Models\ProductQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
@@ -10,12 +12,9 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        return inertia('Products/Index');
-    }
-
-    public function requestNew(Request $request)
-    {
-        return $request->all();
+        $user = auth()->id();
+        $new_product_requests = NewProductRequestResource::collection(NewProductRequest::with('user')->get());
+        return inertia('Products/Index', compact('new_product_requests'));
     }
 
     public function quote(Request $request)
