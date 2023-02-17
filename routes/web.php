@@ -8,6 +8,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ErrorReportController;
+use App\Http\Controllers\NewProductRequestController;
 use App\Http\Controllers\PointRubricController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -59,10 +60,12 @@ Route::post('/orders/update-with-resources/{order}', [OrderController::class, 'u
 Route::get('/products', [ProductController::class, 'index'])
     ->middleware('auth')
     ->name('products.index');
-Route::post('/products/request-new', [ProductController::class, 'requestNew'])->middleware('auth')
-    ->name('products.request-new');
 Route::post('/products/quote', [ProductController::class, 'quote'])->middleware('auth')
     ->name('products.quote');
+Route::resource('new-product-request', NewProductRequestController::class)
+    ->middleware('auth');
+Route::post('new-product/delete-file', [NewProductRequestController::class, 'deleteFile'])->name('new-product.delete-file')
+    ->middleware('auth');
 
 
 Route::get('/points-rubric', [PointRubricController::class, 'index'])
