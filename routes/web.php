@@ -66,6 +66,8 @@ Route::resource('new-product-request', NewProductRequestController::class)
     ->middleware('auth');
 Route::post('new-product/delete-file', [NewProductRequestController::class, 'deleteFile'])->name('new-product.delete-file')
     ->middleware('auth');
+Route::post('new-product/update-file', [NewProductRequestController::class, 'updateWithFiles'])->name('new-product.update-file')
+    ->middleware('auth');
 
 
 Route::get('/points-rubric', [PointRubricController::class, 'index'])
