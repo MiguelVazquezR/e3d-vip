@@ -18,6 +18,7 @@
           @click="
             showNewProduct(new_product_request);
             new_product_selected = new_product_request;
+            new_product_form.product_id = new_product_selected.id
           "
         />
       </div>
@@ -69,7 +70,7 @@
       <template #content>
         <div v-if="new_product">
           <div>
-            <Label class="text-blue-400" value="Descripción del producto" />
+            <Label class="text-blue-400" value="Descripción del producto *" />
             <textarea
               v-model="new_product_form.description"
               class="input w-full !h-32"
@@ -164,17 +165,16 @@
         <div class="flex">
           <div class="flex space-x-1" v-if="show_new_product">
             <ButtonWithLoading
-              @click="new_product_form.post(route('new-product-request.store'))"
+              @click="updateNewProductRequest"
               :processing="new_product_form.processing"
               label="Actualizar"
               loading_label="Enviando..."
             />
             <ButtonWithLoading
               class="btn-danger"
-              @click="deleteNewProduct"
+              @click="delete_new_product_request = true; show_confirmation = true; deleteNewProduct"
               :processing="new_product_form.processing"
               label="Eliminar"
-              loading_label="Eliminando..."
             />
           </div>
           <ButtonWithLoading
@@ -199,13 +199,20 @@
       :show="show_confirmation"
       @close="show_confirmation = false"
     >
-      <template #title> Elimina recurso </template>
-      <template #content>
+      <template v-if="delete_new_product_request" #title> Eliminar Solicitud de nuevo producto </template>
+      <template v-else #title> Elimina recurso </template>
+
+      <template v-if="delete_new_product_request" #content>
+        Estas a punto de eliminar una solicitud de nuevo producto. ¿Deseas continuar?
+      </template>
+
+      <template v-else #content>
         Estas a punto de eliminar un recurso subido anteriormente. ¿Deseas
         continuar?
       </template>
       <template #footer>
-        <button class="btn-danger" @click="deleteFile">Si, eliminar</button>
+        <button v-if="delete_new_product_request" class="btn-danger" @click="deleteNewProduct">Si, eliminar</button>
+        <button v-else class="btn-danger" @click="deleteFile">Si, eliminar</button>
         <button class="btn-secondary ml-2" @click="show_confirmation = false">
           Cancelar
         </button>
@@ -230,6 +237,7 @@ export default {
   data() {
     const new_product_form = useForm({
       description: null,
+      product_id: null,
       resources: [],
     });
 
@@ -248,6 +256,7 @@ export default {
       new_product: false,
       show_new_product: false,
       quotation: false,
+      delete_new_product_request: false,
       products: [
         {
           id: 1,
@@ -355,6 +364,8 @@ export default {
       });
     },
     deleteNewProduct() {
+      this.show_confirmation = false;
+      this.delete_new_product_request = false,
       this.$inertia.delete(
         route("new-product-request.destroy", this.new_product_selected)
       );
@@ -398,15 +409,26 @@ export default {
       this.show_confirmation = false;
       
         this.$inertia.post(route("new-product.delete-file"), {
-          file_id: this.media[this.file_to_delete].id,
+          file_id: this.new_product_selected.media[this.file_to_delete].id,
           new_product_requests_id: this.new_product_selected.id
         })
         .then(() => {
-          this.media.splice(this.file_to_delete, 1);
+          this.new_product_selected.media.splice(this.file_to_delete, 1);
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    updateNewProductRequest() {
+      if(this.new_product_form.resources.length){
+        this.new_product_form.post(route('new-product.update-file'),{
+        onSuccess: () => (this.side_modal = false),
+      });
+      }else{
+      this.new_product_form.put(route('new-product-request.update', this.new_product_selected),{
+         onSuccess: () => (this.side_modal = false),
+      });
+    }
     },
   },
 };
