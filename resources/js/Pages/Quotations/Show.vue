@@ -7,10 +7,10 @@
         Regresar
       </button>
       </Link>
-      <button class="btn-primary my-3 ml-2">
+      <!-- <button class="btn-primary my-3 ml-2">
         <i class="fa-solid fa-print mr-1"></i>
         Imprimir
-      </button>
+      </button> -->
       <button @click="show_confirmation = true" v-if="!quotation.data.status_is.approved" class="btn-primary my-3 ml-2">
         <i class="fa-regular fa-circle-check mr-1"></i>
         Aprobar

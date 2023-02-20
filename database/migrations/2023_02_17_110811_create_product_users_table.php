@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('product_id');
             $table->json('additional_attributes')->nullable();
             $table->boolean('is_composed_product');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });
