@@ -168,7 +168,7 @@ export default {
   },
   methods: {
     showDetails(quotation) {
-      if (quotation.status.code === 0)
+      if (quotation.status_is.in_checking)
         this.$emit("details", quotation);
       else
         this.$inertia.get(route('quotations.show', quotation));

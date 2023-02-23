@@ -13,7 +13,7 @@
       </button> -->
       <button @click="show_confirmation = true" v-if="!quotation.data.status_is.approved" class="btn-primary my-3 ml-2">
         <i class="fa-regular fa-circle-check mr-1"></i>
-        Aprobar
+        Aprobar y generar orden
       </button>
       <span v-else class="text-sm text-green-600 ml-2 rounded-full px-1 py-px bg-green-100">Orden generada</span>
     </div>
